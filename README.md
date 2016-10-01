@@ -1,4 +1,4 @@
-# Projeto-IP-Gabriel-Chirstian-e-Matheus-
+# Projeto-IP-Gabriel-Chirstian-Matheus-Ricardo
 
 Até agora ainda não decidimos o tema, mas Gabriel e Christian votam em restaurante.
 Poderíamos começar a fazer as structs básicas, como "produtos", "funcionarios", "mesas", essas coisas.
