@@ -30,17 +30,48 @@ void cadastro()
         printf("Deseja cadastrar outro produto? (1-SIM 0-NAO)\n");
         scanf("%i",&op);
         getchar();
+        getchar();
+        system("cls");
     }while(op!=0);
+}
+
+void vercadastro ()
+{
+    int x=0;                //variável para armazenar e selecionar um código de produto.
+    printf("Selecione um codigo de produto:\n");
+    scanf("%i",&x);
+    getchar();
+    printf("Produto: %s\nPreco: R$%.2f\nObrigado!\n",produtos[x].nome, produtos[x].preco);
+    getchar();
+    system("cls");
 }
 
 int main()
 {
-    int x=0;
-    cadastro();
-    printf("Selecione um codigo de produto:\n");
-    scanf("%i",&x);
-    getchar();
-    printf("Produto: %s\nPreco: R$%.2f\nObrigado!",produtos[x].nome, produtos[x].preco);
-
+    int menu=0;
+    do
+    {
+        printf("\t\tMENU PRINCIPAL\nDigite o número correspondente à opção desejada:\n1 - Função cadastro\n2 - Função de visualização dos cadastros\n0 - Sair do programa\n");
+        scanf("%i", &menu);
+        getchar();
+        switch (menu)
+        {
+            case 1:
+                system("cls");
+                cadastro();
+                break;
+            case 2:
+                system("cls");
+                vercadastro();
+                break;
+            case 0:
+                break;
+            default:
+                printf("Código inválido\n");
+                break;
+        }
+    }
+    while(menu!=0);
 	return 0;
 }
+
