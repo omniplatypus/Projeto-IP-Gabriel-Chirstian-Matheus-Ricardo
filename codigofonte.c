@@ -1,6 +1,8 @@
 #include <stdio.h>				//comentar o código faz bem :D
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+
 typedef struct
 {
 	char nome[64];
@@ -27,9 +29,11 @@ void cadastro()
         printf("Digite o preco do produto:\n");
         scanf("%f",&produtos[x].preco);
         getchar();
+        printf("Quantas unidades no estoque?");
+        scanf("%i", &produtos[x].estoque);
+        getchar();
         printf("Deseja cadastrar outro produto? (1-SIM 0-NAO)\n");
         scanf("%i",&op);
-        getchar();
         getchar();
         system("cls");
     }while(op!=0);
@@ -41,13 +45,14 @@ void vercadastro ()
     printf("Selecione um codigo de produto:\n");
     scanf("%i",&x);
     getchar();
-    printf("Produto: %s\nPreco: R$%.2f\nObrigado!\n",produtos[x].nome, produtos[x].preco);
+    printf("Produto: %s\nPreco: R$%.2f.\nExistem %i unidades no estoque.\nObrigado!\n",produtos[x].nome, produtos[x].preco, produtos[x].estoque);
     getchar();
     system("cls");
 }
 
 int main()
 {
+    setlocale(LC_ALL, "");
     int menu=0;
     do
     {
@@ -74,4 +79,3 @@ int main()
     while(menu!=0);
 	return 0;
 }
-
