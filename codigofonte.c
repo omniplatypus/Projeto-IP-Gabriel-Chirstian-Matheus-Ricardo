@@ -57,7 +57,7 @@ void menuProdutos()
     int menu=0;
     do
     {
-        printf("\t\tMENU PRODUTOS\nDigite o número correspondente à opção desejada:\n1 - Função cadastro de produtos\n2 - Função de visualização dos cadastros de produtos\n0 - Sair do programa\n");
+        printf("\t\tMENU PRODUTOS\nDigite o número correspondente à opção desejada:\n1 - Função cadastro de produtos\n2 - Função de visualização dos cadastros de produtos\n0 - Sair do menu produtos\n");
         scanf("%i", &menu);
         getchar();
         switch (menu)
@@ -78,5 +78,34 @@ void menuProdutos()
         }
     }
     while(menu!=0);
+    system("cls");
 }
 
+int main()
+{
+  setlocale(LC_ALL, "");
+    int menu=0;
+    do
+    {
+        printf("\t\tMENU PRINCIPAL\nDigite o número correspondente à opção desejada:\n1 - Menu produtos\n2 - Menu funcionários\n0 - Sair do programa\n");
+        scanf("%i", &menu);
+        getchar();
+        switch (menu)
+        {
+            case 1:
+                system("cls");
+                menuProdutos();
+                break;
+            case 2:
+                system("cls");
+   //             menuFuncionarios();
+                break;
+            case 0:
+                break;
+            default:
+                printf("Código inválido\n");
+                break;
+        }
+    }while(menu!=0);
+	return 0;
+}
