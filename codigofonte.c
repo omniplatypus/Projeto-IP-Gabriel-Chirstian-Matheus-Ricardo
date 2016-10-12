@@ -14,7 +14,7 @@ typedef struct
 
 Produto produtos[255];
 
-void cadastro()
+void cadastroProduto()
 {
     int x=0;                        //indice das estruturas de repetição
     int op=0;                       //variável pra opção no menu
@@ -35,11 +35,12 @@ void cadastro()
         printf("Deseja cadastrar outro produto? (1-SIM 0-NAO)\n");
         scanf("%i",&op);
         getchar();
+
         system("cls");
     }while(op!=0);
 }
 
-void vercadastro ()
+void vercadastroProduto ()
 {
     int x=0;                //variável para armazenar e selecionar um código de produto.
     printf("Selecione um codigo de produto:\n");
@@ -50,24 +51,24 @@ void vercadastro ()
     system("cls");
 }
 
-int main()
+void menuProdutos()
 {
     setlocale(LC_ALL, "");
     int menu=0;
     do
     {
-        printf("\t\tMENU PRINCIPAL\nDigite o número correspondente à opção desejada:\n1 - Função cadastro\n2 - Função de visualização dos cadastros\n0 - Sair do programa\n");
+        printf("\t\tMENU PRODUTOS\nDigite o número correspondente à opção desejada:\n1 - Função cadastro de produtos\n2 - Função de visualização dos cadastros de produtos\n0 - Sair do programa\n");
         scanf("%i", &menu);
         getchar();
         switch (menu)
         {
             case 1:
                 system("cls");
-                cadastro();
+                cadastroProduto();
                 break;
             case 2:
                 system("cls");
-                vercadastro();
+                vercadastroProduto();
                 break;
             case 0:
                 break;
@@ -77,5 +78,5 @@ int main()
         }
     }
     while(menu!=0);
-	return 0;
 }
+
