@@ -1,4 +1,4 @@
-#include <stdio.h>				//comentar o código faz bem :D
+##include <stdio.h>				//comentar o código faz bem :D
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
@@ -12,9 +12,7 @@ typedef struct
 	int validade[3];
 }Produto;
 
-Produto produtos[255];
-
-void cadastroProduto()
+void cadastroProduto(Produto produtos[255])
 {
     int x=0;                        //indice das estruturas de repetição
     int op=0;                       //variável pra opção no menu
@@ -40,7 +38,7 @@ void cadastroProduto()
     }while(op!=0);
 }
 
-void vercadastroProduto ()
+void vercadastroProduto (Produto produtos[255])
 {
     int x=0;                //variável para armazenar e selecionar um código de produto.
     printf("Selecione um codigo de produto:\n");
@@ -51,25 +49,78 @@ void vercadastroProduto ()
     system("cls");
 }
 
-void menuProdutos()
+void alteraProduto (Produto produtos[255])
+{
+    int x=0;                //variável para armazenar e selecionar um código de produto.
+    printf("Selecione um codigo de produto:\n");
+    scanf("%i",&x);
+    getchar();
+
+    int op=0;                       //variável pra opção no menu
+    do
+    {
+        printf("Digite o novo nome do produto:\n");
+        gets(produtos[x].nome);
+        printf("Digite o novo preco do produto:\n");
+        scanf("%f",&produtos[x].preco);
+        getchar();
+        printf("Quantas unidades no estoque?");
+        scanf("%i", &produtos[x].estoque);
+        getchar();
+        printf("Deseja alterar outro produto? (1-SIM 0-NAO)\n");
+        scanf("%i",&op);
+        getchar();
+
+        system("cls");
+    }while(op!=0);
+}
+
+/* Não está funcionando ainda! Por quê? Boa pergunta...
+void relatorioProduto(Produto produtos[255])
+{
+    int i=0;
+    int numProdutos;
+
+    while(strlen(produtos[i].nome)>0)
+    {
+        i++;
+        numProdutos++;
+    }
+
+    for(i=0; i<=numProdutos; i++)
+    {
+        printf("%i - %f", i, produtos[i].nome);
+    }
+}
+*/
+
+void menuProdutos(Produto produtos[255])
 {
     setlocale(LC_ALL, "");
     int menu=0;
     do
     {
-        printf("\t\tMENU PRODUTOS\nDigite o número correspondente à opção desejada:\n1 - Função cadastro de produtos\n2 - Função de visualização dos cadastros de produtos\n0 - Sair do menu produtos\n");
+        printf("\t\tMENU PRODUTOS\nDigite o número correspondente à opção desejada:\n1 - Função cadastro de produtos\n2 - Função alteração de cadastro\n3 - Função de visualização dos cadastros de produtos\n4 - Relatório de produtos (código - Nome do produto)\n0 - Sair do menu produtos\n");
         scanf("%i", &menu);
         getchar();
         switch (menu)
         {
             case 1:
                 system("cls");
-                cadastroProduto();
+                cadastroProduto(produtos);
                 break;
             case 2:
                 system("cls");
-                vercadastroProduto();
+                alteraProduto(produtos);
                 break;
+            case 3:
+                system("cls");
+                vercadastroProduto(produtos);
+                break;
+ //           case 4:
+ //               system("cls");
+ //               relatorioProduto(produtos);
+ //               break;
             case 0:
                 break;
             default:
@@ -85,6 +136,7 @@ int main()
 {
   setlocale(LC_ALL, "");
     int menu=0;
+    Produto produtos[255];
     do
     {
         printf("\t\tMENU PRINCIPAL\nDigite o número correspondente à opção desejada:\n1 - Menu produtos\n2 - Menu funcionários\n0 - Sair do programa\n");
@@ -94,7 +146,7 @@ int main()
         {
             case 1:
                 system("cls");
-                menuProdutos();
+                menuProdutos(produtos);
                 break;
             case 2:
                 system("cls");
