@@ -1,4 +1,4 @@
-##include <stdio.h>				//comentar o código faz bem :D
+#include <stdio.h>				//comentar o código faz bem :D
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
@@ -10,6 +10,7 @@ typedef struct
 	float preco;
 	int estoque;
 	int validade[3];
+	int ativo;
 }Produto;
 
 void cadastroProduto(Produto produtos[255])
@@ -30,6 +31,7 @@ void cadastroProduto(Produto produtos[255])
         printf("Quantas unidades no estoque?");
         scanf("%i", &produtos[x].estoque);
         getchar();
+        produtos[x].ativo = 1;
         printf("Deseja cadastrar outro produto? (1-SIM 0-NAO)\n");
         scanf("%i",&op);
         getchar();
@@ -75,24 +77,18 @@ void alteraProduto (Produto produtos[255])
     }while(op!=0);
 }
 
-/* Não está funcionando ainda! Por quê? Boa pergunta...
+
 void relatorioProduto(Produto produtos[255])
 {
     int i=0;
-    int numProdutos;
 
-    while(strlen(produtos[i].nome)>0)
+    for(i=0; i<=255; i++)
     {
-        i++;
-        numProdutos++;
-    }
-
-    for(i=0; i<=numProdutos; i++)
-    {
-        printf("%i - %f", i, produtos[i].nome);
+        if(produtos[i].ativo == 1)
+            printf("%i - %s\n", i, produtos[i].nome);
     }
 }
-*/
+
 
 void menuProdutos(Produto produtos[255])
 {
@@ -117,10 +113,10 @@ void menuProdutos(Produto produtos[255])
                 system("cls");
                 vercadastroProduto(produtos);
                 break;
- //           case 4:
- //               system("cls");
- //               relatorioProduto(produtos);
- //               break;
+            case 4:
+                system("cls");
+                relatorioProduto(produtos);
+                break;
             case 0:
                 break;
             default:
