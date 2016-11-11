@@ -225,6 +225,56 @@ void verClientes(Cliente cliente[255],Endereco endereco[255])// função para ve
     }while(op!=0);
 }
 
+void excluirCadastro(Cliente cliente[255],Endereco endereco[255])// excluir cadastro
+{
+	int codigo, desejo, op;
+	do
+    {
+        printf("Digite o código do cliente\n");
+        scanf("%d", &codigo);
+
+        Cliente *ponteiro = &cliente[codigo];
+        Endereco *ponteiro2=&endereco[codigo];
+
+        if(strlen(cliente[codigo].nome)<=0)
+        {
+            printf("Desculpe mas esse codigo nao existe.\n");
+            printf("\nDeseja excluir outro cadastro? (1 - Sim/0 - Não)\n");
+            scanf("%d", &op);
+            system("pause");
+            system("cls");
+            continue;
+        }
+	printf("Nome: %s\nData de nascimento: %d/%d/%d\nEndereco: rua %s, bairro %s, %s, n°%d\nPrato predileto: %s\nCliente VIP: %d", ponteiro->nome, ponteiro->dia, ponteiro->mes, ponteiro->ano, ponteiro2->rua, ponteiro2->bairro, ponteiro2->cidade, ponteiro2->numero, ponteiro->predileto, ponteiro->clientevip);
+        printf("\nDeseja mesmo excluir esse cadastro? (1 - Sim/0 - Não)\n");
+        scanf("%d", &desejo);
+	if(desejo==1)
+        {
+            system("cls");
+            printf("Cadastro Excluído!");
+            //ponteiro
+            strcpy(ponteiro->nome,"");
+            ponteiro->dia=0;
+            ponteiro->mes=0;
+            ponteiro->ano=0;
+            strcpy(ponteiro->predileto,"");
+            ponteiro->assiduo=0;
+            ponteiro->clientevip=0;
+            //ponteiro2
+            strcpy(ponteiro2->bairro,"");
+            strcpy(ponteiro2->rua,"");
+            strcpy(ponteiro2->cidade,"");
+            ponteiro2->numero=0;
+        }
+    printf("\n");
+    system("pause");
+    printf("\nDeseja excluir outro cadastro? (1 - Sim/0 - Não)\n");
+    scanf("%d", &op);
+    system("cls");
+    }while(op!=0);
+
+}
+
             // menu de opções de clientes
 
 void menuClientes(Cliente cliente[255],Endereco endereco[255])
@@ -241,6 +291,7 @@ void menuClientes(Cliente cliente[255],Endereco endereco[255])
         printf("2 - Alterar cadastro do cliente\n");
         printf("3 - Relatório de Clientes\n");
         printf("4 - Visualizar Cadastro de cliente\n");
+	printf("5 - Excluir Cadastro\n");
         printf("0 - Para sair dessa opcao\n");
         scanf("%d", &opmenu);
         setbuf(stdin,NULL);
@@ -267,6 +318,10 @@ void menuClientes(Cliente cliente[255],Endereco endereco[255])
                 system("cls");
                 verClientes(cliente,endereco);
                 break;
+	    case 5:
+            	system("cls");
+            	excluirCadastro(cliente,endereco);
+            	break;
             default:
                 printf("\nOpcao Inválida");
                 system("pause");
