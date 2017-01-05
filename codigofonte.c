@@ -18,7 +18,7 @@ struct endereco{
 typedef struct cliente CLIENTE;
 struct cliente{
     char nome[200];
-    int dia, mes, ano;
+    char data[11];
     char predileto[60];
     int clientevip;
     int ativo;//1=ativo/0=excluído.
@@ -42,9 +42,7 @@ void cadastroCliente()// funçao de cadastro de clientes
     int vip, opmenu, z=3;
     arquivo = fopen("cliente.dat", "ab");
     char a[5];
-    char dia[3];
-    char mes[3];
-    char ano[5];
+    char data[11];
     if(arquivo==NULL)// condição de erro
 	{
 		printf("\nNão foi possível abrir o arquivo, arquivo nulo.");
@@ -57,7 +55,7 @@ void cadastroCliente()// funçao de cadastro de clientes
         printf("\t\t\t\t Cadastrar clientes ");
         printf("\n\t\t\t***********************************\n");
 
-        printf("Digite o nome do cliente:\n");
+         printf("Digite o nome do cliente:\n");
         do
         {
             gets(cll.nome);
@@ -68,28 +66,29 @@ void cadastroCliente()// funçao de cadastro de clientes
             }
         }while(strcmp(cll.nome,"\0")==0);
 
-        printf("\nDigite a data de nascimento do cliente :\n");
+        printf("\nDigite a data de nascimento do cliente(dd/mm/aaaa) :\n");
         do
         {// laço para caso seja uma data inválida
-            scanf("%d/%d/%d", &cll.dia, &cll.mes, &cll.ano);
+            fgets(data,11,stdin);
+            data[10]='\0';
+            setbuf(stdin,NULL);
             getchar();
-            if(isalpha(cll.dia) || isalpha(cll.ano)|| isalpha(cll.mes))
-            {
-                printf("%c\nData inválida\n", 7);
+            if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
 
-            }
-            else if(cll.dia>31|| cll.mes>12 || cll.ano>2018 ||cll.dia<=0||cll.mes<=0||cll.ano<=0)
-            {
                 printf("%c\nData inválida\n", 7);
             }
+
             else
             {
+                strcpy(cll.data,data);
                 break;
             }
+
         }while(z==3);
 
         printf("Qual o endereco do cliente?\n");
         printf("Rua?\n");
+
         do
         {
             gets(cll.end.rua);
@@ -126,6 +125,7 @@ void cadastroCliente()// funçao de cadastro de clientes
         do{
         fgets(a,5,stdin);
         setbuf(stdin,NULL);
+        getchar();
         if((a[0]>='a' && a[0]<='z')||(a[0]>='A' && a[0]<='Z')||(a[1]>='a' && a[1]<='z')||(a[1]>='A' && a[1]<='Z')||(a[2]>='a' && a[2]<='z')||(a[2]>='A' && a[2]<='Z')||(a[3]>='a' && a[3]<='z')||(a[3]>='A' && a[3]<='Z'))
         {
             printf("%c\nData inválida\n", 7);
@@ -208,7 +208,7 @@ void excluirCadastro()
                 {
                 printf("\n");
                 printf("Nome: %s\n", cll.nome);
-                printf("Data de nascimento: %d/%d/%d\n", cll.dia, cll.mes, cll.ano);
+                printf("Data de nascimento: %s\n", cll.data);
                 printf("Prato Predileto: %s\n",cll.predileto);
                 printf("Cliente vip: %d\n", cll.clientevip);
                 printf("Rua: %s\n", cll.end.rua);
@@ -262,7 +262,6 @@ void excluirCadastro()
 }
 
 
-
 void relatorioClientes()// função para imprimir os clientes cadastrados e seus códigos.
 {
     FILE *arquivo;
@@ -279,7 +278,7 @@ void relatorioClientes()// função para imprimir os clientes cadastrados e seus
                 if(cll.ativo==1)
                 {
                 printf("Nome: %s\n", cll.nome);
-                printf("Data de nascimento: %d/%d/%d\n", cll.dia, cll.mes, cll.ano);
+                printf("Data de nascimento: %s\n", cll.data);
                 printf("Prato Predileto: %s\n",cll.predileto);
                 printf("Cliente vip: %d\n", cll.clientevip);
                 printf("Rua: %s\n", cll.end.rua);
@@ -322,11 +321,11 @@ void verClientes()// função para ver as  informações de um cliente
         while(!feof(arquivo)){
         if(fread(&cll,sizeof(CLIENTE),1,arquivo)==1){
         if(cll.ativo==1){
-        if(strstr(strlwr(cll.nome),strlwr(nome))||strstr(strlwr(cll.predileto),strlwr(nome))||strstr(strlwr(cll.end.rua),strlwr(nome))||strstr(strlwr(cll.end.bairro),strlwr(nome))||strstr(strlwr(cll.end.cidade),strlwr(nome))||cll.dia==atoi(nome)||cll.mes==atoi(nome)||cll.ano==atoi(nome))
+        if(strstr(strlwr(cll.nome),strlwr(nome))||strstr(strlwr(cll.predileto),strlwr(nome))||strstr(strlwr(cll.end.rua),strlwr(nome))||strstr(strlwr(cll.end.bairro),strlwr(nome))||strstr(strlwr(cll.end.cidade),strlwr(nome))||strstr(strlwr(cll.data),strlwr(nome)))
         {
                 printf("\n");
                 printf("Nome: %s\n", cll.nome);
-                printf("Data de nascimento: %d/%d/%d\n", cll.dia, cll.mes, cll.ano);
+                printf("Data de nascimento: %s\n", cll.data);
                 printf("Prato Predileto: %s\n",cll.predileto);
                 printf("Cliente vip: %d\n", cll.clientevip);
                 printf("Rua: %s\n", cll.end.rua);
@@ -370,7 +369,7 @@ void alterarCadastro()// alterar cadastro
 {
     FILE *arquivo;
     CLIENTE cll;
-    char c, a[5];
+    char c, a[5], data[11];
     int vip, z=3;
     int posicao=0, regnum=0,desejo;
     char nome[200];
@@ -399,7 +398,7 @@ void alterarCadastro()// alterar cadastro
         {
                 printf("\n");
                 printf("Nome: %s\n", cll.nome);
-                printf("Data de nascimento: %d/%d/%d\n", cll.dia, cll.mes, cll.ano);
+                printf("Data de nascimento: %s\n", cll.data);
                 printf("Prato Predileto: %s\n",cll.predileto);
                 printf("Cliente vip: %d\n", cll.clientevip);
                 printf("Rua: %s\n", cll.end.rua);
@@ -473,21 +472,21 @@ void alterarCadastro()// alterar cadastro
                     printf("\nDigite a data de nascimento do cliente (dd/mm/aa):\n");
                     do
                     {// laço para caso seja uma data inválida
-                        scanf("%d/%d/%d", &cll.dia, &cll.mes, &cll.ano);
+                        fgets(data,11,stdin);
+                        data[10]='\0';
+                        setbuf(stdin,NULL);
                         getchar();
-                        if(isalpha(cll.dia) || isalpha(cll.ano)|| isalpha(cll.mes))
-                        {
-                            printf("%c\nData inválida\n", 7);
+                        if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
 
-                        }
-                        else if(cll.dia>31|| cll.mes>12 || cll.ano>2018 ||cll.dia<=0||cll.mes<=0||cll.ano<=0)
-                        {
                             printf("%c\nData inválida\n", 7);
                         }
+
                         else
                         {
+                            strcpy(cll.data,data);
                             break;
                         }
+
                     }while(z==3);
 
                     break;
@@ -587,25 +586,22 @@ void alterarCadastro()// alterar cadastro
                     printf("\nDigite a data de nascimento do cliente (dd/mm/aa):\n");
                     do
                     {// laço para caso seja uma data inválida
-                        scanf("%d/%d/%d", &cll.dia, &cll.mes, &cll.ano);
-                        getchar();
+                        fgets(data,11,stdin);
+                        data[10]='\0';
                         setbuf(stdin,NULL);
+                        getchar();
+                        if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
 
-                        if(isalpha(cll.dia) || isalpha(cll.ano)|| isalpha(cll.mes))
-                        {
-                            printf("%c\nData inválida", 7);
+                            printf("%c\nData inválida\n", 7);
+                        }
 
-                        }
-                        else if(cll.dia>31|| cll.mes>12 || cll.ano>2018 ||cll.dia<=0||cll.mes<=0||cll.ano<=0)
-                        {
-                            printf("%c\nData inválida", 7);
-                        }
                         else
                         {
+                            strcpy(cll.data,data);
                             break;
                         }
-                    }while(z==3);
 
+                    }while(z==3);
 
                     printf("Qual o endereco do cliente?\n");
                     printf("Rua?\n");
@@ -698,11 +694,11 @@ void alterarCadastro()// alterar cadastro
 }
 
 
-void anivMes()// função para aniversariantes do mes
+void anivMes()
 {
     FILE *arquivo;
     CLIENTE cll;
-    int mes;
+    char mes[3];
     arquivo = fopen("cliente.dat", "rb");
     if(arquivo == NULL){
         printf("Não foi possível abrir o arquivo, arquivo nulo!\n");
@@ -710,15 +706,15 @@ void anivMes()// função para aniversariantes do mes
     }
     else{
         setbuf(stdin,NULL);
-        printf("De qual mês deseja saber os aniversariantes? [0-12]\n");
-        scanf("%d",&mes);
-        getchar();
+        printf("De qual mês deseja saber os aniversariantes? [00-12]\n");
+        fgets(mes,3,stdin);
+        setbuf(stdin,NULL);
         system("cls");
         printf("Aniversariantes:\n");
         while(fread(&cll,sizeof(CLIENTE),1,arquivo)==1){
-            if(cll.mes==mes&&cll.ativo==1){
+            if(cll.data[3]==mes[0]&&cll.data[4]==mes[1]&&cll.ativo==1){
                 printf("%s\n", cll.nome);
-                printf("%d/%d/%d", cll.dia,cll.mes,cll.ano);
+                printf("%s", cll.data);
                 printf("\n--------------------------------------\n");
             }
         }
