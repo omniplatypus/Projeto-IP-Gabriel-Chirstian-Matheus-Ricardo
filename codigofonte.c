@@ -25,7 +25,7 @@ void ChecarDados()
 	    exit(1);
 	}
 	do{
-	printf(" Digite o numero da mesa deseja checar ou 0 se deseja voltar para o menu.\n");
+	printf("Digite o numero da mesa deseja checar ou 0 se deseja voltar para o menu.\n");
 	scanf("%i",&pesquisa);
 	system("cls");
 	if(pesquisa!=1 && pesquisa!=2 &&pesquisa!=3 &&pesquisa!=4&&pesquisa!=5&&pesquisa!=0)
@@ -48,6 +48,30 @@ void ChecarDados()
         }
 
     fclose(arq);
+}
+void MesaLivre()
+{
+    system("cls");
+    FILE *arq;
+    MESAS atl;
+    arq=fopen("texto.dat","r+b");
+    if(arq == NULL)
+    {
+        printf("falha ao abrir o arquivo");
+        system("pause");
+        exit(1);
+    }
+    while(!feof(arq))
+    {
+        fread(&atl,sizeof(MESAS),1,arq);
+        if(atl.estado==0)
+        {
+            printf("Mesa %i livre\n",atl.numero);
+        }
+    }
+    fclose(arq);
+    getchar();
+    system("cls");
 }
 void AdicionarPratos()
 {
@@ -218,7 +242,7 @@ int main()
 	int menu;
 	do{
 	printf("Menu de mesas\n\n\n");
-	printf("Digite o numero correpondente a funcao desejada\n 1-Checar Dados\n 2-Adicionar Pratos\n 3-Preencher Mesas\n 4-Resetar Mesa\n 5-Alterar conta\n");
+	printf("Digite o numero correpondente a funcao desejada\n 1-Checar Dados\n 2-Adicionar Pratos\n 3-Preencher Mesas\n 4-Resetar Mesa\n 5-Alterar conta\n 6-Checar mesas livres\n");
 	scanf("%i",&menu);
 	switch(menu)
 	{
@@ -245,6 +269,10 @@ int main()
         case 5:
         {
               AlterarConta();
+        }
+        case 6:
+        {
+              MesaLivre();
         }
         case 0:
         {
