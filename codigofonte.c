@@ -80,7 +80,7 @@ void AdicionarPratos()
     MESAS atl;
     int pesquisa, pos=0, regnum=0;
     float soma;
-    arq=fopen("texto.dat","a+b");
+    arq=fopen("texto.dat","r+b");
     if(arq == NULL)
     {
         printf("falha ao abrir o arquivo");
@@ -135,7 +135,7 @@ void PreencherMesas()
     MESAS atl;
     int aux;
     char entg [10]="NADA";
-    arq=fopen("texto.dat","a+b");
+    arq=fopen("texto.dat","w+b");
     for(aux=0;aux<5;aux++)
     {
             atl.numero= aux+1;
