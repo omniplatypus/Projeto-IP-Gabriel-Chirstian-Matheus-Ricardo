@@ -146,7 +146,7 @@ void PreencherMesas()
     }
     fclose(arq);
 }
-void ResetarMesa()
+void ZerarMesa()
 {
     FILE *arq;
     MESAS atl;
@@ -167,9 +167,9 @@ void ResetarMesa()
     system("cls");
     if (reset==0);
     {
-    printf("Voltando ao menu...\n");
-    getchar();
-    break;
+        printf("Voltando ao menu...\n");
+        getchar();
+        break;
     }
 
     fseek(arq,sizeof(MESAS)*(reset-1),SEEK_SET);
@@ -227,7 +227,7 @@ void AlterarConta()
     }
     else
     {
-        atl.estado=1;                                                          // como fzr para digitar apenas numeros?
+        atl.estado=1;
         printf("digite a operacao que deseja fazer:\n");
         scanf("%f",&soma);
         atl.conta=atl.conta+soma;
@@ -263,7 +263,7 @@ int main()
 		}
 		case 4:
         {
-            ResetarMesa();
+            ZerarMesa();
             break;
         }
         case 5:
