@@ -371,16 +371,16 @@ void alterarCadastro3()// alterar cadastro
         {
         printf("\n");
 
-		printf("\t\t\t***********************************\n");
+	printf("\t\t\t***********************************\n");
         printf("\t\t\t\t Atualização de cadastro ");
         printf("\n\t\t\t***********************************\n");
         printf("\n\n");
-		printf("\n1 - Nome do produto\n");
+	printf("\n1 - Nome do produto\n");
         printf("2 - Preço do produto\n");
         printf("3 - Data de validade do produto\n");
         printf("4 - Numero de unidades do produto\n");
         printf("5 - Todas as anteriores\n");
-		printf("\n\n");
+	printf("\n\n");
         printf("O que você deseja alterar?\n");
         scanf("%d", &desejo);
         MrMusculo();
