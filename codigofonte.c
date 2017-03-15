@@ -1,46 +1,35 @@
-typedef struct endereco2 ENDERECO2;
-struct endereco2{
-    char rua[60];
-    char bairro[60];
-    char cidade[60];
-    int numero;
-};
-
-typedef struct funcionario FUNCIONARIO;
-struct funcionario{
-    char nome[200];
-    char data[11];
-    char cargo[100];
-    char cpf[50];
-    float salario;
-    int ativo;//1=ativo/0=excluído.
-    ENDERECO2 end;
-};
+typedef struct
+{
+	char nome[200];	
+	float preco;
+	int estoque;
+	int data[11];   //validade
+	int ativo;
+}Produto;
 
 
-
-void cadastroFuncionario()// funçao de cadastro de clientes
+void cadastroProduto()// funçao de cadastro de clientes
 {
     FILE *arquivo;
-    FUNCIONARIO cll;
+    PRODUTO cll;
 
     int opmenu, z=3;
-    arquivo = fopen("funcionario.dat", "ab");
-    char a[5], sal[60];
+    arquivo = fopen("produto.dat", "ab");
+    char a[5], preço[60];
     char data[11];
     if(arquivo==NULL)// condição de erro
 	{
 		printf("\nNão foi possível abrir o arquivo, arquivo nulo.");
 		exit(0);
 	}
-    else{
+	else{
     do
     {
         printf("\t\t\t***********************************\n");
-        printf("\t\t\t\t Cadastrar funcionario ");
+        printf("\t\t\t\t Cadastrar Produto ");
         printf("\n\t\t\t***********************************\n");
 
-         printf("Digite o nome do funcionario:\n");
+        printf("Digite o nome do produto:\n");
         do
         {
             gets(cll.nome);
@@ -49,68 +38,47 @@ void cadastroFuncionario()// funçao de cadastro de clientes
                 printf("Desculpe mas você não digitou nada...\n");
             }
         }while(strcmp(cll.nome,"\0")==0);
+        
+        
+        printf("Digite o preço do produto:\n");
+                    do{
+                    fgets(preço,60,stdin);
+                    if((preço[0]>='a' && preço[0]<='z')||(preço[0]>='A' && preço[0]<='Z')||(preço[1]>='a' && preço[1]<='z')||(preço[1]>='A' && preço[1]<='Z')||(preço[2]>='a' && preço[2]<='z')||(preço[2]>='A' && preço[2]<='Z')||(preço[3]>='a' && preço[3]<='z')||(preço[3]>='A' && preço[3]<='Z'))
+                    {
+                        printf("%c\npreço invalido\n", 7);
 
-        printf("Digite o cpf do funcionario:\n");
-        do
-        {
-            gets(cll.cpf);
-            if(strcmp(cll.cpf,"\0")==0)
-            {
-                printf("Desculpe mas você não digitou nada...\n");
-            }
-        }while(strcmp(cll.cpf,"\0")==0);
 
-        printf("\nDigite a data de nascimento do funcionario(dd/mm/aaaa) :\n");
-        do
-        {// laço para caso seja uma data inválida
-            fgets(data,11,stdin);
-            data[10]='\0';
-            if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
-
-                printf("%c\nData inválida\n", 7);
-            }
-
-            else
-            {
-                strcpy(cll.data,data);
-                break;
-            }
-
-        }while(z==3);
-        getchar();
-        printf("Qual o endereco do funcionario?\n");
-        printf("Rua?\n");
-
-        do
-        {
-            gets(cll.end.rua);
-            if(strcmp(cll.end.rua,"\0")==0)
-            {
-                printf("Desculpe mas você não digitou nada...\n");
-            }
-        }while(strcmp(cll.end.rua,"\0")==0);
-
-        printf("Bairro?\n");
-        do
-        {
-            gets(cll.end.bairro);
-            if(strcmp(cll.end.bairro,"\0")==0)
-            {
-                printf("Desculpe mas você não digitou nada...\n");
-            }
-        }while(strcmp(cll.end.bairro,"\0")==0);
-
-        printf("Cidade?\n");
-        do
-        {
-            gets(cll.end.cidade);
-            if(strcmp(cll.end.cidade,"\0")==0)
-            {
-                printf("Desculpe mas você não digitou nada...\n");
-            }
-        }while(strcmp(cll.end.cidade,"\0")==0);
-
-		printf("Numero?\n");
+                    }
+                    else
+                    {
+                        cll.preço=atof(preço);
+                        break;
+                    }
+                    }while(z==3);
+        
+		               
+		printf("\nDigite a data de validade do produto(dd/mm/aaaa) :\n");
+		        do
+		        {// laço para caso seja uma data inválida
+		            fgets(validade,11,stdin);
+		            data[10]='\0';
+		            if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
+		
+		                printf("%c\nData inválida\n", 7);
+		            }
+		
+		            else
+		            {
+		                strcpy(cll.data,data);
+		                break;
+		            }
+		
+		        }while(z==3);
+		        getchar();
+		        
+		        
+		        
+		printf("Quantos profutos de %s deseja cadastrar?\n", &cll.nome);
         do{
         fgets(a,5,stdin);
         getchar();
@@ -121,38 +89,14 @@ void cadastroFuncionario()// funçao de cadastro de clientes
         }
         else
         {
-            cll.end.numero=atoi(a);
+            cll.estoque=atoi(a);
             break;
         }
         }while(z==3);
 
-        printf("Digite o cargo do funcionario:\n");
-        do
-        {
-            gets(cll.cargo);
-            if(strcmp(cll.cargo,"\0")==0)
-            {
-                printf("Desculpe mas você não digitou nada...\n");
-            }
-        }while(strcmp(cll.cargo,"\0")==0);
-
-		printf("Digite o salario do funcionario:\n");
-                    do{
-                    fgets(sal,60,stdin);
-                    if((sal[0]>='a' && sal[0]<='z')||(sal[0]>='A' && sal[0]<='Z')||(sal[1]>='a' && sal[1]<='z')||(sal[1]>='A' && sal[1]<='Z')||(sal[2]>='a' && sal[2]<='z')||(sal[2]>='A' && sal[2]<='Z')||(sal[3]>='a' && sal[3]<='z')||(sal[3]>='A' && sal[3]<='Z'))
-                    {
-                        printf("%c\nSalario inválido\n", 7);
 
 
-                    }
-                    else
-                    {
-                        cll.salario=atof(sal);
-                        break;
-                    }
-                    }while(z==3);
-
-        cll.ativo=1;
+		 cll.ativo=1;
         fwrite(&cll, sizeof(FUNCIONARIO), 1, arquivo);
 
 
@@ -169,11 +113,12 @@ void cadastroFuncionario()// funçao de cadastro de clientes
 
 }
 
-void excluirCadastro2()
+
+void excluirCadastro3()
 {
     FILE *arquivo;
-    FUNCIONARIO cll;
-    arquivo = fopen("funcionario.dat", "r+b");
+    PRODUTO cll;
+    arquivo = fopen("produto.dat", "r+b");
     int posicao=0, regnum=0;
     char op, desejo,nome[60];
     if(arquivo == NULL)
@@ -183,7 +128,7 @@ void excluirCadastro2()
     }
     else
     {
-        printf("Digite o nome do cadastrado a ser excluído:\n");
+        printf("Digite o nome do produto a ser excluído:\n");
         do
         {
             gets(nome);
@@ -193,43 +138,42 @@ void excluirCadastro2()
             }
         }while(strcmp(nome,"\n")==0);
 
-        while(fread(&cll,sizeof(FUNCIONARIO),1,arquivo)==1){
-                if(strstr(strlwr(cll.nome),strlwr(nome))&&cll.ativo==1)
-                {
-                printf("\n");
-                printf("Nome: %s\n", cll.nome);
-                printf("CPF: %s\n", cll.cpf);
-                printf("Data de nascimento: %s\n", cll.data);
-                printf("Rua: %s\n", cll.end.rua);
-                printf("Bairro: %s\n", cll.end.bairro);
-                printf("Cidade: %s\n", cll.end.cidade);
-                printf("Número: %d\n", cll.end.numero);
-                printf("Cargo: %s\n", cll.cargo);
-                printf("Salario: %f\n", cll.salario);
-                printf("\n------------------------------------------------------------------\n");
-                printf("\nEsse é o registro que está procurando?(s/n)\n");
-                op=getchar();
-                getchar();
 
-                if(strstr(strlwr(cll.nome),strlwr(nome))&&op=='s')
-            {
-                    regnum=posicao+1;
-                    system("pause");
-                    break;
-            }
-               }
-                system("cls");
-                posicao++;
 
-}
-        if(regnum==0)
-        {
-            printf("\n\nDesculpe nenhum registro encontrado...\n");
-            system("pause");
-            system("cls");
+		while(fread(&cll,sizeof(PRODUTO),1,arquivo)==1){
+		                if(strstr(strlwr(cll.nome),strlwr(nome))&&cll.ativo==1)
+		                {
+		                printf("\n");
+		                printf("Nome: %s\n", cll.nome);
+		                printf("Data de validade: %s\n", cll.data);
+		                printf("Unidades do produto: %d\n", cll.estoque);
+		                printf("Preço por unidade: %f\n", cll.preço);
+		                printf("\n------------------------------------------------------------------\n");
+		                printf("\nEsse é o registro que está procurando?(s/n)\n");
+		                op=getchar();
+		                getchar();
+		
+		                if(strstr(strlwr(cll.nome),strlwr(nome))&&op=='s')
+		            {
+		                    regnum=posicao+1;
+		                    system("pause");
+		                    break;
+		            }
+		               }
+		                system("cls");
+		                posicao++;
+		
+		}
+		        if(regnum==0)
+		        {
+		            printf("\n\nDesculpe nenhum registro encontrado...\n");
+		            system("pause");
+		            system("cls");
+		
+		        }
 
-        }
-        else
+
+		else
         {
             printf("\nDeseja excluir esse registro?(s/n)\n");
             desejo=getchar();
@@ -239,8 +183,8 @@ void excluirCadastro2()
         {
             printf("\n\t  **** Cadastro excluído com sucesso! ****\n");
             cll.ativo=0;
-            fseek(arquivo,sizeof(FUNCIONARIO)*(regnum-1),SEEK_SET);
-            fwrite(&cll,sizeof(FUNCIONARIO),1,arquivo);
+            fseek(arquivo,sizeof(PRODUTO)*(regnum-1),SEEK_SET);
+            fwrite(&cll,sizeof(PRODUTO),1,arquivo);
         }
         else
         {
@@ -252,43 +196,45 @@ void excluirCadastro2()
     fclose(arquivo);
 }
 
-void relatorioFuncionarios()// função para imprimir os clientes cadastrados e seus códigos.
+
+
+void relatorioProdutos()
 {
     FILE *arquivo;
-    FUNCIONARIO cll;
-    arquivo = fopen("funcionario.dat", "rb");
-    if(arquivo==NULL)// condição de erro
-	{
-		printf("\nNão foi possível abrir o arquivo, arquivo nulo.");
-		exit(0);
-	}
+    PRODUTO cll;
+    arquivo = fopen("produto.dat", "rb");
+    int posicao=0, regnum=0;
+    char op, desejo,nome[60];
+    if(arquivo == NULL)
+    {
+        printf("Não foi possível abrir o arquivo, arquivo nulo!\n");
+        exit(0);
+    }
 	else{
             while(fread(&cll,sizeof(FUNCIONARIO), 1, arquivo)==1)
             {
                 if(cll.ativo==1)
                 {
-                printf("Nome: %s\n", cll.nome);
-                printf("cpf: %s\n", cll.cpf);
-                printf("Data de nascimento: %s\n", cll.data);
-                printf("Rua: %s\n", cll.end.rua);
-                printf("Bairro: %s\n", cll.end.bairro);
-                printf("Cidade: %s\n", cll.end.cidade);
-                printf("Número: %d\n", cll.end.numero);
-                printf("Cargo: %s\n", cll.cargo);
-                printf("Salario: %f\n", cll.salario);
-                printf("\n------------------------------------------------------------------\n");
-                }
-            }
-	}
-	fclose(arquivo);
-    system("pause");
-    system("cls");
-    }
+					printf("\n");
+	                printf("Nome: %s\n", cll.nome);
+	                printf("Data de validade: %s\n", cll.data);
+	                printf("Unidades do produto: %d\n", cll.estoque);
+	                printf("Preço por unidade: %f\n", cll.preço);
+	                printf("\n------------------------------------------------------------------\n");
+	                
+		    	}
+     		}
+		}
+fclose(arquivo);
+system("pause");
+system("cls");
+}
 
-void verFuncionarios()// função para ver as  informações de um cliente
+
+void verProdutos()
 {
     FILE *arquivo;
-    FUNCIONARIO cll;
+    PRODUTO cll;
     char nome[200], c;
     arquivo = fopen("funcionario.dat", "rb");
     if(arquivo == NULL)
@@ -296,9 +242,9 @@ void verFuncionarios()// função para ver as  informações de um cliente
         printf("Não foi possível abrir o arquivo, arquivo nulo!\n");
         exit(0);
     }
-    else
+	else
     {
-       printf("Digite o nome do funcionario a ser pesquisado:\n");
+       printf("Digite o nome do produto a ser pesquisado:\n");
        do
         {
             gets(nome);
@@ -307,23 +253,21 @@ void verFuncionarios()// função para ver as  informações de um cliente
                 printf("Desculpe mas você não digitou nada...\n");
             }
         }while(strcmp(nome,"\0")==0);
+        
+        
+        
         while(!feof(arquivo)){
-        if(fread(&cll,sizeof(FUNCIONARIO),1,arquivo)==1){
+        if(fread(&cll,sizeof(PRODUTO),1,arquivo)==1){
         if(cll.ativo==1){
         if(strstr(strlwr(cll.nome),strlwr(nome))||strstr(strlwr(cll.cpf),strlwr(nome))||strstr(strlwr(cll.end.rua),strlwr(nome))||strstr(strlwr(cll.end.bairro),strlwr(nome))||strstr(strlwr(cll.end.cidade),strlwr(nome))||strstr(strlwr(cll.data),strlwr(nome)))
         {
-                printf("\n");
-                printf("Nome: %s\n", cll.nome);
-                printf("CPF: %s\n", cll.cpf);
-                printf("Data de nascimento: %s\n", cll.data);
-                printf("Rua: %s\n", cll.end.rua);
-                printf("Bairro: %s\n", cll.end.bairro);
-                printf("Cidade: %s\n", cll.end.cidade);
-                printf("número: %d\n", cll.end.numero);
-                printf("Cargo: %s\n", cll.cargo);
-                printf("Salario: %f\n", cll.salario);
-                printf("\n------------------------------------------------------------------\n");
-                printf("\n\nÉ este cadastro que estava procurando?(s/n)");
+					printf("\n");
+	                printf("Nome: %s\n", cll.nome);
+	                printf("Data de validade: %s\n", cll.data);
+	                printf("Unidades do produto: %d\n", cll.estoque);
+	                printf("Preço por unidade: %f\n", cll.preço);
+	                printf("\n------------------------------------------------------------------\n");
+	                printf("\n\nÉ este cadastro que estava procurando?(s/n)");
                 c=getche();
                 if(c=='s')
                 {
@@ -353,51 +297,52 @@ system("cls");
 }
 }
 
-void alterarCadastro2()// alterar cadastro
-{
-    FILE *arquivo;
-    FUNCIONARIO cll;
-    char c, a[5], data[11], sal[60];
-    int z=3;
-    int posicao=0, regnum=0,desejo;
-    char nome[200];
-    arquivo = fopen("funcionario.dat", "r+b");
-    if(arquivo == NULL){
-        printf("Não foi possível abrir o arquivo, arquivo nulo!\n");
-        exit(0);
-    }
-    else
-    {
-            printf("Digite um nome do funcionario a ser alterado:\n");
-            do
-            {
-                gets(nome);
-                if(strcmp(nome,"\0")==0)
-                {
-                    printf("Desculpe mas você não digitou nada...\n");
-                }
-            }while(strcmp(nome,"\0")==0);
 
-        while(!feof(arquivo)){
-        if(fread(&cll,sizeof(FUNCIONARIO),1,arquivo)==1){
-        char op;
-        if(strstr(strlwr(cll.nome),strlwr(nome))&&cll.ativo==1)
+
+
+
+
+void alterarCadastro3()// alterar cadastro
+{
+	FILE *arquivo;
+    PRODUTO cll;
+
+    int opmenu, z=3;
+    arquivo = fopen("produto.dat", "ab");
+    char a[5], preço[60];
+    char data[11];
+    if(arquivo==NULL)// condição de erro
+	{
+		printf("\nNão foi possível abrir o arquivo, arquivo nulo.");
+		exit(0);
+	}    
+	else
+    {
+       printf("Digite o nome do produto a ser pesquisado:\n");
+       do
         {
-                printf("\n");
-                printf("Nome: %s\n", cll.nome);
-                printf("CPF: %s\n", cll.cpf);
-                printf("Data de nascimento: %s\n", cll.data);
-                printf("Rua: %s\n", cll.end.rua);
-                printf("Bairro: %s\n", cll.end.bairro);
-                printf("Cidade: %s\n", cll.end.cidade);
-                printf("número: %d\n", cll.end.numero);
-                printf("Cargo: %s\n", cll.cargo);
-                printf("Salario: %f\n", cll.salario);
-                printf("\n------------------------------------------------------------------\n");
-                printf("\nEra esse o cadastro que estava procurando?(s/n)\n");
-                op=getchar();
-                getchar();
-                if(op=='s')
+            gets(nome);
+            if(strcmp(nome,"\0")==0)
+            {
+                printf("Desculpe mas você não digitou nada...\n");
+            }
+        }while(strcmp(nome,"\0")==0);
+		
+		
+			
+        while(!feof(arquivo)){
+        if(fread(&cll,sizeof(PRODUTO),1,arquivo)==1){
+		char op;
+		        if(strstr(strlwr(cll.nome),strlwr(nome))&&cll.ativo==1)
+		        {
+					printf("\n");
+	                printf("Nome: %s\n", cll.nome);
+	                printf("Data de validade: %s\n", cll.data);
+	                printf("Unidades do produto: %d\n", cll.estoque);
+	                printf("Preço por unidade: %f\n", cll.preço);
+	                printf("\n------------------------------------------------------------------\n");
+	                printf("\n\nÉ este cadastro que estava procurando?(s/n)");
+	                if(op=='s')
                 {
                 regnum=posicao+1;
                 break;
@@ -426,18 +371,16 @@ void alterarCadastro2()// alterar cadastro
         {
         printf("\n");
 
-        printf("\t\t\t***********************************\n");
+		printf("\t\t\t***********************************\n");
         printf("\t\t\t\t Atualização de cadastro ");
         printf("\n\t\t\t***********************************\n");
         printf("\n\n");
-        printf("\n1 - Nome do funcionario\n");
-        printf("2 - CPF do funcionario\n");
-        printf("3 - Data de nascimento do funcionario\n");
-        printf("4 - Endereço do funcionario\n");
-        printf("5 - Cargo do funcionario\n");
-        printf("6 - Salario do funcionario\n");
-        printf("7 - Todas as anteriores\n");
-        printf("\n\n");
+		printf("\n1 - Nome do produto\n");
+        printf("2 - Preço do produto\n");
+        printf("3 - Data de validade do produto\n");
+        printf("4 - Numero de unidades do produto\n");
+        printf("5 - Todas as anteriores\n");
+		printf("\n\n");
         printf("O que você deseja alterar?\n");
         scanf("%d", &desejo);
         MrMusculo();
@@ -446,258 +389,151 @@ void alterarCadastro2()// alterar cadastro
             switch(desejo)
             {
                 case 1:
-                    printf("Digite o nome do funcionario:\n");
-                    do
-                    {
-                        gets(cll.nome);
-                        if(strcmp(cll.nome,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.nome,"\0")==0);
+                    printf("Digite o nome do produto:\n");
+        do
+        {
+            gets(cll.nome);
+            if(strcmp(cll.nome,"\0")==0)
+            {
+                printf("Desculpe mas você não digitou nada...\n");
+            }
+        }while(strcmp(cll.nome,"\0")==0);
                     break;
 
                 case 2:
-                    printf("Digite o cpf do funcionario:\n");
-                    do
+                    printf("Digite o preço do produto:\n");
+                    do{
+                    fgets(preço,60,stdin);
+                    if((preço[0]>='a' && preço[0]<='z')||(preço[0]>='A' && preço[0]<='Z')||(preço[1]>='a' && preço[1]<='z')||(preço[1]>='A' && preço[1]<='Z')||(preço[2]>='a' && preço[2]<='z')||(preço[2]>='A' && preço[2]<='Z')||(preço[3]>='a' && preço[3]<='z')||(preço[3]>='A' && preço[3]<='Z'))
                     {
-                        gets(cll.cpf);
-                        if(strcmp(cll.cpf,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.cpf,"\0")==0);
+                        printf("%c\npreço invalido\n", 7);
+
+
+                    }
+                    else
+                    {
+                        cll.preço=atof(preço);
+                        break;
+                    }
+                    }while(z==3);
+                    
                     break;
 
                 case 3:
-                    printf("\nDigite a data de nascimento do funcionario (dd/mm/aa):\n");
-                    do
-                    {// laço para caso seja uma data inválida
-                        fgets(data,11,stdin);
-                        data[10]='\0';
-                        getchar();
-                        if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
-
-                            printf("%c\nData inválida\n", 7);
-                        }
-
-                        else
-                        {
-                            strcpy(cll.data,data);
-                            break;
-                        }
-
-                    }while(z==3);
-
-                    break;
+                    printf("\nDigite a data de validade do produto(dd/mm/aaaa) :\n");
+		        do
+		        {// laço para caso seja uma data inválida
+		            fgets(validade,11,stdin);
+		            data[10]='\0';
+		            if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
+		
+		                printf("%c\nData inválida\n", 7);
+		            }
+		
+		            else
+		            {
+		                strcpy(cll.data,data);
+		                break;
+		            }
+		
+		        }while(z==3);
+		        
+		        break;
 
                 case 4:
-                    getchar();
-                    printf("Qual o endereco do funcionario?\n");
-                    printf("Rua?\n");
-                    do
-                    {
-                        gets(cll.end.rua);
-                        if(strcmp(cll.end.rua,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.end.rua,"\0")==0);
+                    printf("Quantos profutos de %s deseja cadastrar?\n", &cll.nome);
+        do{
+        fgets(a,5,stdin);
+        getchar();
+        if((a[0]>='a' && a[0]<='z')||(a[0]>='A' && a[0]<='Z')||(a[1]>='a' && a[1]<='z')||(a[1]>='A' && a[1]<='Z')||(a[2]>='a' && a[2]<='z')||(a[2]>='A' && a[2]<='Z')||(a[3]>='a' && a[3]<='z')||(a[3]>='A' && a[3]<='Z'))
+        {
+            printf("%c\nNumero invalido\n", 7);
 
-                    printf("Bairro?\n");
-                    do
-                    {
-                        gets(cll.end.bairro);
-                        if(strcmp(cll.end.bairro,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.end.bairro,"\0")==0);
-
-
-                    printf("Cidade?\n");
-                    do
-                    {
-                        gets(cll.end.cidade);
-                        if(strcmp(cll.end.cidade,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                            setbuf(stdin,NULL);
-                        }
-                    }while(strcmp(cll.end.cidade,"\0")==0);
-
-                    printf("Numero?\n");
-                    do{
-                    setbuf(stdin,NULL);
-                    fgets(a,5,stdin);
-                    if((a[0]>='a' && a[0]<='z')||(a[0]>='A' && a[0]<='Z')||(a[1]>='a' && a[1]<='z')||(a[1]>='A' && a[1]<='Z')||(a[2]>='a' && a[2]<='z')||(a[2]>='A' && a[2]<='Z')||(a[3]>='a' && a[3]<='z')||(a[3]>='A' && a[3]<='Z'))
-                    {
-                        printf("%c\nNumero inválido\n", 7);
-                        setbuf(stdin,NULL);
-
-                    }
-                    else
-                    {
-                        cll.end.numero=atoi(a);
-                        break;
-                    }
-                    }while(z==3);
-                    break;
+        }
+        else
+        {
+            cll.estoque=atoi(a);
+            break;
+        }
+        }while(z==3);
+        
+        break;
 
                 case 5:
-                    printf("Digite o cargo do funcionario:\n");
-                    do
-                    {
-                        gets(cll.cargo);
-                        if(strcmp(cll.cargo,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.cargo,"\0")==0);
-                    break;
-
-                case 6:
-                    printf("Digite o salario do funcionario:\n");
-                    do{
-                    fgets(sal,60,stdin);
-                    if((sal[0]>='a' && sal[0]<='z')||(sal[0]>='A' && sal[0]<='Z')||(sal[1]>='a' && sal[1]<='z')||(sal[1]>='A' && sal[1]<='Z')||(sal[2]>='a' && sal[2]<='z')||(sal[2]>='A' && sal[2]<='Z')||(sal[3]>='a' && sal[3]<='z')||(sal[3]>='A' && sal[3]<='Z'))
-                    {
-                        printf("%c\nSalario inválido\n", 7);
-
-
-                    }
-                    else
-                    {
-                        cll.salario=atof(sal);
-                        break;
-                    }
-                    }while(z==3);
-
-
-                    break;
-
-                case 7:
-                    printf("Digite o nome do funcionario:\n");
-                    do
-                    {
-                        gets(cll.nome);
-                        if(strcmp(cll.nome,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.nome,"\0")==0);
-
-                    printf("Digite o cpf do funcionario:\n");
-                    do
-                    {
-                        if(strcmp(cll.cpf,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.cpf,"\0")==0);
-
-                    printf("\nDigite a data de nascimento do cliente (dd/mm/aa):\n");
-                    do
-                    {// laço para caso seja uma data inválida
-                        fgets(data,11,stdin);
-                        data[10]='\0';
-                        getchar();
-                        if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
-
-                            printf("%c\nData inválida\n", 7);
-                        }
-
-                        else
-                        {
-                            strcpy(cll.data,data);
-                            break;
-                        }
-
-                    }while(z==3);
-                    getchar();
-                    printf("Qual o endereco do cliente?\n");
-                    printf("Rua?\n");
-                    do
-                    {
-                        gets(cll.end.rua);
-                        if(strcmp(cll.end.rua,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.end.rua,"\0")==0);
-
-                    printf("Bairro?\n");
-                    do
-                    {
-                    gets(cll.end.bairro);
-                        if(strcmp(cll.end.bairro,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.end.bairro,"\0")==0);
-
-                    printf("Cidade?\n");
-                    do
-                    {
-                        gets(cll.end.cidade);
-                        if(strcmp(cll.end.cidade,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-                    }while(strcmp(cll.end.cidade,"\0")==0);
-
-                    printf("Numero?\n");
-                    do{
-                        fgets(a,5,stdin);
-                        if((a[0]>='a' && a[0]<='z')||(a[0]>='A' && a[0]<='Z')||(a[1]>='a' && a[1]<='z')||(a[1]>='A' && a[1]<='Z')||(a[2]>='a' && a[2]<='z')||(a[2]>='A' && a[2]<='Z')||(a[3]>='a' && a[3]<='z')||(a[3]>='A' && a[3]<='Z'))
-                        {
-                            printf("%c\nNumero inválido\n", 7);
-
-                        }
-                        else
-                        {
-                            cll.end.numero=atoi(a);
-                            break;
-                        }
-                        }while(z==3);
-
-                    printf("Digite o cargo do funcionario:\n");
-                    do
-                    {
-                        gets(cll.cargo);
-                        if(strcmp(cll.cargo,"\0")==0)
-                        {
-                            printf("Desculpe mas você não digitou nada...\n");
-                        }
-
-                    }while(strcmp(cll.cargo,"\0")==0);
-
-                    printf("Digite o salario do funcionario:\n");
-                    do{
-                    fgets(sal,60,stdin);
-                    if((sal[0]>='a' && sal[0]<='z')||(sal[0]>='A' && sal[0]<='Z')||(sal[1]>='a' && sal[1]<='z')||(sal[1]>='A' && sal[1]<='Z')||(sal[2]>='a' && sal[2]<='z')||(sal[2]>='A' && sal[2]<='Z')||(sal[3]>='a' && sal[3]<='z')||(sal[3]>='A' && sal[3]<='Z'))
-                    {
-                        printf("%c\nSalario inválido\n", 7);
-
-
-                    }
-                    else
-                    {
-                        cll.salario=atof(sal);
-                        break;
-                    }
-                    }while(z==3);
-
-
-                    break;
-
-                default:
+                    printf("Digite o nome do produto:\n");
+			        do
+			        {
+			            gets(cll.nome);
+			            if(strcmp(cll.nome,"\0")==0)
+			            {
+			                printf("Desculpe mas você não digitou nada...\n");
+			            }
+			        }while(strcmp(cll.nome,"\0")==0);
+			        
+			        
+			        printf("Digite o preço do produto:\n");
+			                    do{
+			                    fgets(preço,60,stdin);
+			                    if((preço[0]>='a' && preço[0]<='z')||(preço[0]>='A' && preço[0]<='Z')||(preço[1]>='a' && preço[1]<='z')||(preço[1]>='A' && preço[1]<='Z')||(preço[2]>='a' && preço[2]<='z')||(preço[2]>='A' && preço[2]<='Z')||(preço[3]>='a' && preço[3]<='z')||(preço[3]>='A' && preço[3]<='Z'))
+			                    {
+			                        printf("%c\npreço invalido\n", 7);
+			
+			
+			                    }
+			                    else
+			                    {
+			                        cll.preço=atof(preço);
+			                        break;
+			                    }
+			                    }while(z==3);
+			        
+					               
+					printf("\nDigite a data de validade do produto(dd/mm/aaaa) :\n");
+					        do
+					        {// laço para caso seja uma data inválida
+					            fgets(validade,11,stdin);
+					            data[10]='\0';
+					            if((data[0]>='a' && data[0]<='z')||(data[0]>='A' && data[0]<='Z')||(data[1]>='a' && data[1]<='z')||(data[1]>='A' && data[1]<='Z')||data[2]!='/'||(data[3]>='a' && data[3]<='z')||(data[3]>='A' && data[3]<='Z')||(data[4]>='a' && data[4]<='z')||(data[4]>='A' && data[4]<='Z')||data[5]!='/'||(data[6]>='a' && data[6]<='z')||(data[6]>='A' && data[6]<='Z')||(data[7]>='a' && data[7]<='z')||(data[7]>='A' && data[7]<='Z')||(data[8]>='a' && data[8]<='z')||(data[8]>='A' && data[8]<='Z')||(data[9]>='a' && data[9]<='z')||(data[9]>='A' && data[9]<='Z')){
+					
+					                printf("%c\nData inválida\n", 7);
+					            }
+					
+					            else
+					            {
+					                strcpy(cll.data,data);
+					                break;
+					            }
+					
+					        }while(z==3);
+					        
+					        
+					        
+					printf("Quantos profutos de %s deseja cadastrar?\n", &cll.nome);
+			        do{
+			        fgets(a,5,stdin);
+			        getchar();
+			        if((a[0]>='a' && a[0]<='z')||(a[0]>='A' && a[0]<='Z')||(a[1]>='a' && a[1]<='z')||(a[1]>='A' && a[1]<='Z')||(a[2]>='a' && a[2]<='z')||(a[2]>='A' && a[2]<='Z')||(a[3]>='a' && a[3]<='z')||(a[3]>='A' && a[3]<='Z'))
+			        {
+			            printf("%c\nNumero invalido\n", 7);
+			
+			        }
+			        else
+			        {
+			            cll.estoque=atoi(a);
+			            break;
+			        }
+			        }while(z==3);
+			        
+			        break;
+			        
+			        
+			        default:
                     printf("\nOPÇÃO INVÁLIDA!!!\n");
                     system("pause");
                     system("cls");
         }
-        fseek(arquivo,sizeof(FUNCIONARIO)*(regnum-1),SEEK_SET);
-        fwrite(&cll,sizeof(FUNCIONARIO),1,arquivo);
+        fseek(arquivo,sizeof(PRODUTO)*(regnum-1),SEEK_SET);
+        fwrite(&cll,sizeof(PRODUTO),1,arquivo);
         printf("\n\t****Cadastro atualizado com sucesso...!****");
         printf("\n");
         }
@@ -708,31 +544,10 @@ void alterarCadastro2()// alterar cadastro
 
 }
 
-void relatorioSalario()
-{
-    FILE *arquivo;
-    FUNCIONARIO cll;
-    arquivo = fopen("funcionario.dat", "rb");
-    float soma=0;
-    if(arquivo==NULL)// condição de erro
-	{
-		printf("\nNão foi possível abrir o arquivo, arquivo nulo.");
-		exit(0);
-	}
-            while(fread(&cll,sizeof(FUNCIONARIO), 1, arquivo)==1)
-            {
-                if(cll.ativo==1)
-                {
-                soma = soma + cll.salario;
-                }
-            }
-            printf("a soma dos salarios é:R$ %f\n", soma);
-            fclose(arquivo);
-    system("pause");
-    system("cls");
-	}
 
-void menuFuncionarios()
+
+
+void menuProdutos()
 {
 
     int opmenu;
@@ -740,15 +555,14 @@ void menuFuncionarios()
     {
 
         printf("\t\t\t************************\n");
-        printf("\t\t\t* Menu de Funcionarios *");
+        printf("\t\t\t* Menu de Produtos *");
         printf("\n\t\t\t************************\n");
         printf("\n\n");
-        printf("1 - Cadastrar novo funcionario\n");
+        printf("1 - Cadastrar novo produto\n");
         printf("2 - Alterar Cadastro\n");
-        printf("3 - Lista de funcionarios\n");
+        printf("3 - Lista de produtos\n");
         printf("4 - Pesquisar cadastrados\n");
         printf("5 - Excluir cadastro\n");
-        printf("6 - Relatorio de salários\n");
         printf("0 - Para sair dessa opcao\n");
         printf("\nQual operação deseja realizar?\n");
         scanf("%d", &opmenu);
@@ -762,27 +576,23 @@ void menuFuncionarios()
 
             case 1:
                 system("cls");
-                cadastroFuncionario();
+                cadastroProduto();
                 break;
             case 2:
                 system("cls");
-                alterarCadastro2();
+                alterarCadastro3();
                 break;
             case 3:
                 system("cls");
-                relatorioFuncionarios();
+                relatorioProdutos();
                 break;
             case 4:
                 system("cls");
-                verFuncionarios();
+                verProdutos();
                 break;
             case 5:
                 system("cls");
-                excluirCadastro2();
-                break;
-            case 6:
-                system ("cls");
-                relatorioSalario();
+                excluirCadastro3();
                 break;
             default:
                 printf("\nOpcao Inválida");
@@ -792,4 +602,5 @@ void menuFuncionarios()
 
     }while(opmenu!=0);
 }
+
 
